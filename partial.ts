@@ -5,6 +5,7 @@ type User = {
 }
 
 type UpdatedUser = Partial<User>
+let nextUserId = 1
 
 const users: User[] = [
     { id: 1, username: "john_doe", role: "member" },
@@ -23,6 +24,19 @@ function updateUser(id: number, updates: UpdatedUser) {
     // Use Object.assign to update the found user in place. 
     Object.assign(foundUser, updates)
 }
+function addNewUser(newUser: any): User {
+    const user: User = {
+        id: nextUserId++,
+        ...newUser
+    }
+    users.push(user)
+    return user
+}
+
+// example usage:
+addNewUser({ username: "joe_schmoe", role: "member" })
+
+console.log(users)
 
 // Example updates:
 updateUser(1, { username: "new_john_doe" });
